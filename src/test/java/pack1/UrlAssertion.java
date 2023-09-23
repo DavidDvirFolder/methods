@@ -13,7 +13,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class UrlAssertion {
-    //starting here
+    /*
+    this is an example for url and title assertion using junit
+
+     */
 
     WebDriver driver;
     WebDriverWait wait;
