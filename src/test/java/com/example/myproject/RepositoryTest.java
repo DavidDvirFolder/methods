@@ -3,10 +3,9 @@ package com.example.myproject;
 import java.time.Duration;
 import java.util.List;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,15 +16,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class RepositoryTest {
 
     // Constants for maintenance
+    // Refactor to Junit5 will speed up the execution time
 
-    WebDriver driver;
-    WebDriverWait wait;
+    static WebDriver driver;
+    static WebDriverWait wait;
     private static final String BaseUrl = "https://github.com/DavidDvirFolder";
     private static final String RepoUrl = BaseUrl + "?tab=repositories";
     private int numberOfRepositories;
 
 
-    @Before
+    @BeforeEach
     public void setupDriver() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
@@ -33,7 +33,7 @@ public class RepositoryTest {
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         driver.manage().window().maximize();
     }
-    @After
+    @AfterEach
     public void cleanUp(){
         if (driver!=null){
             driver.quit();
@@ -49,8 +49,7 @@ public class RepositoryTest {
                     By.xpath("//span[@class='p-nickname vcard-username d-block' and contains(text(),'DavidDvirFolder')]")));
 
             String textName = user.getText(); // -> DavidDvirFolder
-        System.out.println(textName);
-            Assert.assertTrue("Username in URL doesn't match displayed username", driver.getCurrentUrl().contains(textName));
+            Assertions.assertTrue(driver.getCurrentUrl().contains(textName), "Username in URL doesn't match displayed username");
         //the end
     }
     @Test
@@ -67,6 +66,6 @@ public class RepositoryTest {
         } catch (NumberFormatException e) {
             System.err.println("Error parsing text to integer");
         }
-        Assert.assertEquals("Number of repositories doesn't match", repositoriesSize, numberOfRepositories);
+        Assertions.assertEquals(repositoriesSize, numberOfRepositories, "Number of repositories doesn't match");
     }
 }
