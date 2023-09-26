@@ -1,4 +1,4 @@
-package com.example.myproject;
+package com.example.front;
 
 import java.time.Duration;
 import java.util.List;
